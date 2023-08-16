@@ -38,7 +38,7 @@ function addRemoveFavroite(link){
       name: link.dataset.name,
       imgSrc: link.dataset.imgsrc
     }
-    link.querySelector('img').src="/assets/images/fav-red.png"
+    link.querySelector('img').src="assets/images/fav-red.png"
   }
 
   localStorage.setItem('obj',JSON.stringify(favObj));
