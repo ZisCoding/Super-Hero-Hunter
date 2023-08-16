@@ -31,7 +31,7 @@ function addRemoveFavroite(link){
 
   if(favObj.hasOwnProperty(link.dataset.id)){
     delete favObj[link.dataset.id];
-    link.querySelector('img').src="/assets/images/fav-icon.png"
+    link.querySelector('img').src="assets/images/fav-icon.png"
   }else{
     favObj[link.dataset.id]={
       id: link.dataset.id,
@@ -78,9 +78,9 @@ function addResultToDom(data){
   data.results.forEach(element => {
       let srcValue;
       if(favObj.hasOwnProperty(element.id)){
-        srcValue="/assets/images/fav-red.png"
+        srcValue="assets/images/fav-red.png"
       }else{
-        srcValue="/assets/images/fav-icon.png"
+        srcValue="assets/images/fav-icon.png"
       }
 
       let li = document.createElement('li');
