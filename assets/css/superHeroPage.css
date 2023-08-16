@@ -1,0 +1,136 @@
+@font-face {
+    font-family: myFont;
+    src: url('../font/thunder-lord/Thunder\ Lord.ttf') format('truetype');
+}
+
+*{
+    font-family: myFont, san-sarif;
+    box-sizing: border-box;
+    color: lightgray;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body{
+    margin: 0px !important;
+    overflow: scroll;
+    background-color: black;
+    
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+
+.background-img-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    
+}
+
+
+.background-img{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0;
+    filter: blur(10px);
+}
+
+
+#character-info-container{
+    width : 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2%;
+}
+
+#hero-image-container{
+    width: 30%;
+    height: 100%;
+    align-content: center;
+}
+
+#hero-detail-container{
+    width: 70%;
+    height: 100%;
+    padding: 2%;
+    overflow: scroll;
+}
+
+#hero-detail-container::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.4em;
+  }
+  /* Style the scrollbar thumb */
+#hero-detail-container::-webkit-scrollbar-thumb {
+    background-color: purple;
+    border-radius: 0.2em;
+}
+
+
+@media   (max-width: 1100px){
+    #hero-image-container{
+        width: 40%;
+        height: 90%;
+    }
+    
+    #hero-detail-container{
+        width: 60%;
+        height: 90%;
+    }
+}
+
+@media   (max-width: 700px){
+    #hero-image-container{
+        width: 100%;
+        height: 80%;
+    }
+    
+    #hero-detail-container{
+        width: 100%;
+        overflow: visible;
+    }
+}
+
+
+
+
+#powerstate-container{
+    margin: 5%;
+    padding: 3%;
+    
+}
+
+#appereance-container{
+    margin: 5%;
+    margin-top: 0;
+    padding: 3%;
+    
+}

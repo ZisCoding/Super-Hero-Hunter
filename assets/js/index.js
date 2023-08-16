@@ -3,6 +3,15 @@ var images = document.getElementsByClassName('background-img');
 // iterator to iterate in bakcgroud images
 var changeImageIndex = 0;
 
+
+
+// creating object to save the info of fav character
+if(localStorage.getItem('obj')==null){
+  localStorage.setItem('obj',JSON.stringify({}));
+}
+
+
+
 // this function will apply the fade in and fade out animation to the background images after every 3sec
 function changeImage() {
   images[changeImageIndex].style.animation = 'fadeOut 3s ease-in-out';
@@ -14,10 +23,34 @@ changeImage();
 // calling change image in every 3 second 
 setInterval(changeImage, 3000);
 
+// this function will add th character id to the local storage of browser 
+function addRemoveFavroite(link){
+  // if it is already in the fav array
+  let favObj = JSON.parse(localStorage.getItem('obj')); 
+
+
+  if(favObj.hasOwnProperty(link.dataset.id)){
+    delete favObj[link.dataset.id];
+    link.querySelector('img').src="/assets/images/fav-icon.png"
+  }else{
+    favObj[link.dataset.id]={
+      id: link.dataset.id,
+      name: link.dataset.name,
+      imgSrc: link.dataset.imgsrc
+    }
+    link.querySelector('img').src="/assets/images/fav-red.png"
+  }
+
+  localStorage.setItem('obj',JSON.stringify(favObj));
+
+}
+
+
+
 function addResultToDom(data){
   //selecting the search result list so that we can insert search result inside it
   let searchResultList = document.getElementById('search-result-list');
-  console.log(data);
+
 
   // for every new search setting the search list to empty
   searchResultList.innerHTML="";
@@ -39,22 +72,42 @@ function addResultToDom(data){
     return ;
   }
 
+  let favObj = JSON.parse(localStorage.getItem('obj'));
+
   // traversing through all the result we got for a search and adding them to the dom
   data.results.forEach(element => {
+      let srcValue;
+      if(favObj.hasOwnProperty(element.id)){
+        srcValue="/assets/images/fav-red.png"
+      }else{
+        srcValue="/assets/images/fav-icon.png"
+      }
+
       let li = document.createElement('li');
       li.setAttribute('class',"search-result");
 
       li.innerHTML=`<a style="display: flex
-      ; width: 80%;" href="">
-        <img class="search-character-img" src=${element.image.url}>
+      ; width: 80%;" href="superHeroPage.html?id=${element.id}">
+        <img class="search-character-img" alt="404" src=${element.image.url}>
         &nbsp; &nbsp; ${element.name}
       </a>
-      <a href="">
-        <img class="search-fav-icon" src="assets/images/fav-icon.png">
+      <a href=""  class="favorite" data-id=${element.id} data-name=${element.name} data-imgsrc=${element.image.url}>
+        <img class="search-fav-icon" src=${srcValue}>
       </a>`
 
       searchResultList.appendChild(li);
   });
+
+  // fetching all fav links 
+  let favoriteLink = document.getElementsByClassName('favorite');
+ 
+  // adding fav eventlistener to all the fav links 
+  for(var i=0 ; i<favoriteLink.length ; i++){
+     favoriteLink[i].addEventListener('click',(e)=>{
+      e.preventDefault();
+      addRemoveFavroite(e.currentTarget );
+    });
+  }
 }
 
 //this function will serach image from the api
@@ -80,3 +133,5 @@ searchBox.addEventListener('keyup',function(e){
   // passing the input of serach box to the serahcImage function
   serachImage(searchBox.value);
 });
+
+
